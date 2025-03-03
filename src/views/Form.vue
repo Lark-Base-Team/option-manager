@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 23:19
+ * @LastTime   : 2025-03-03 23:24
  * @desc       : 主要页面
 -->
 <script setup>
@@ -116,13 +116,10 @@
       // 检查是否重复
       const duplicateOption = fieldOptions.value.find((o) => o.value !== option.value && o.label === option.label);
       if (duplicateOption) {
-        // 保存当前值
-        const currentLabel = option.label;
-        // 找到原始值
-        const originalOption = originalOptions.value.find((o) => o.value === option.value);
-        const originalLabel = originalOption ? originalOption.label : '';
+        // 获取最近一次有效值
+        const lastValidLabel = originalOptions.value.find(o => o.value === option.value)?.label || fieldOptions.value[optionIndex].label;
 
-        // 显示重名确认弹窗，包含重复的选项名称
+        // 显示重名确认弹窗
         try {
           await ElMessageBox.confirm(
             t('dialog.rename.description', { name: duplicateOption.label }),
@@ -133,12 +130,13 @@
               type: 'warning',
             },
           );
-          // 用户点击确认，恢复原始值
-          option.label = originalLabel;
-          hasChanges.value = true;
-        } catch (err) {
-          // 用户点击取消，恢复原始值
-          option.label = originalLabel;
+        } finally {
+          // 无论用户点击确认还是取消，都恢复为最近一次有效值
+          option.label = lastValidLabel;
+          // 确保视图更新
+          fieldOptions.value[optionIndex].label = lastValidLabel;
+          // 重置hasChanges状态
+          hasChanges.value = false;
         }
         return;
       }
