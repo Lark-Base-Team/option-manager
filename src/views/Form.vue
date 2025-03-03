@@ -311,6 +311,10 @@
       // 获取新的字段列表
       const _list = await table.getFieldMetaList();
       selectFieldList.value = _list.filter((item) => item.type === 3 || item.type === 4);
+      // 自动选中第一个可用的选项字段
+      if (selectFieldList.value && selectFieldList.value.length > 0) {
+        selectFieldId.value = selectFieldList.value[0].id;
+      }
     }
 
     viewId.value = newViewId;
