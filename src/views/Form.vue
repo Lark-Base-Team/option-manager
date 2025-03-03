@@ -299,8 +299,21 @@
     recordId.value = event.data.recordId;
 
     // 获取当前数据表和视图
-    databaseId.value = event.data.tableId;
-    viewId.value = event.data.viewId;
+    const newTableId = event.data.tableId;
+    const newViewId = event.data.viewId;
+
+    // 如果数据表发生变化，更新相关数据
+    if (newTableId !== databaseId.value) {
+      databaseId.value = newTableId;
+      const table = await base.getTable(newTableId);
+      // 获取新的视图列表
+      viewList.value = await table.getViewMetaList();
+      // 获取新的字段列表
+      const _list = await table.getFieldMetaList();
+      selectFieldList.value = _list.filter((item) => item.type === 3 || item.type === 4);
+    }
+
+    viewId.value = newViewId;
 
     const table = await base.getActiveTable();
     if (currentFieldId.value && recordId.value) {
