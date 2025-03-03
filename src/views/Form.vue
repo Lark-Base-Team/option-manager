@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 12:30
+ * @LastTime   : 2025-03-03 13:03
  * @desc       : 主要页面
 -->
 <script setup>
@@ -44,7 +44,7 @@
     const view = await table.getViewById(viewId.value);
     const _list = await view.getFieldMetaList();
     selectFieldList.value = _list.filter((item) => item.type === 3 || item.type === 4);
-    
+
     // 如果有可用的单选/多选字段，自动选中第一个
     if (selectFieldList.value && selectFieldList.value.length > 0) {
       selectFieldId.value = selectFieldList.value[0].id;
@@ -257,21 +257,52 @@
 <template>
   <div class="main">
     <div class="support-buttons">
-      <el-button type="warning" class="support-button" :icon="Star" plain @click="handleSponsorClick">赞助我</el-button>
-      
+      <el-button
+        type="warning"
+        class="support-button"
+        :icon="Star"
+        plain
+        @click="handleSponsorClick"
+        >{{ $t('label.sponsor') }}</el-button
+      >
+
       <!-- 赞助弹窗 -->
       <el-dialog
         v-model="showSponsorDialog"
-        title="赞助我"
+        :title="$t('dialog.sponsor.title')"
         width="300px"
         align-center
       >
         <div class="sponsor-content">
-          <p>如果这个插件对你有帮助，欢迎赞助我一杯咖啡 ☕</p>
-          <p style="color: #909399; font-size: 12px;">感谢支持，二维码仅用于自愿赞助，不涉及任何商品或服务交易</p>
+          <p style="margin-bottom: 8px">{{ $t('dialog.sponsor.description') }}</p>
+          <p style="color: #909399; font-size: 12px; margin-bottom: 8px">{{ $t('dialog.sponsor.note') }}</p>
+          <p style="margin-bottom: 8px">{{ $t('dialog.sponsor.note1') }}</p>
+        </div>
+        <div>
+          <div>
+            <img
+              style="width: 200px; height: 200px; margin-bottom: 20px"
+              src="@/assets/images/wx.png"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              style="width: 200px; height: 240px"
+              src="@/assets/images/zfb.png"
+              alt=""
+            />
+          </div>
         </div>
       </el-dialog>
-      <el-button type="primary" class="support-button" :icon="User" plain @click="handleFollowClick">关注我</el-button>
+      <el-button
+        type="primary"
+        class="support-button"
+        :icon="User"
+        plain
+        @click="handleFollowClick"
+        >{{ $t('label.follow') }}</el-button
+      >
     </div>
     <div class="label">
       <div class="text">{{ $t('label.view') }}</div>
@@ -314,12 +345,12 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px">
           <el-input
             v-model="searchQuery"
-            placeholder="搜索选项"
+            :placeholder="$t('placeholder.search')"
             clearable
             style="width: calc(100% - 80px)"
           />
           <div style="font-size: 12px; color: #909399; display: flex; align-items: center">
-            选项总数：<span style="color: #0442d2">{{ filteredOptions.length }}</span>
+            {{ $t('label.optionCount') }}：<span style="color: #0442d2">{{ filteredOptions.length }}</span>
           </div>
         </div>
         <el-table
@@ -333,19 +364,19 @@
             type="index"
             width="60"
             align="center"
-            label="序号"
+            :label="$t('label.serialNumber')"
             class-name="no-wrap-column"
           />
           <el-table-column
             prop="label"
-            label="选项值名称"
+            :label="$t('label.optionName')"
           >
             <template #default="{ row }">
               <el-input
                 v-model="row.label"
                 size="small"
                 @change="handleOptionNameChange(row)"
-                placeholder="请输入选项名称"
+                :placeholder="$t('placeholder.optionName')"
               />
             </template>
           </el-table-column>
@@ -371,7 +402,7 @@
               @click="handleAddOption"
               :icon="Plus"
               style="margin-right: 12px"
-              >添加选项</el-button
+              >{{ $t('button.addOption') }}</el-button
             >
             <el-button
               type="success"
@@ -379,7 +410,7 @@
               :disabled="!hasChanges"
               :loading="loading"
               :icon="Check"
-              >保存修改</el-button
+              >{{ $t('button.saveChanges') }}</el-button
             >
           </div>
         </div>
@@ -460,16 +491,16 @@
     cursor: move;
     color: #999;
   }
-  </style>
+</style>
 
-  <style>
-    .selectStyle {
-      .el-select-dropdown__item {
-        font-weight: 300 !important;
-      }
-  
-      .el-select-dropdown__item.selected {
-        color: rgb(20, 86, 240);
-      }
+<style>
+  .selectStyle {
+    .el-select-dropdown__item {
+      font-weight: 300 !important;
     }
-  </style>
+
+    .el-select-dropdown__item.selected {
+      color: rgb(20, 86, 240);
+    }
+  }
+</style>

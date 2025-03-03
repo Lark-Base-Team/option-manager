@@ -3,11 +3,30 @@
     "base": "Table",
     "view": "View",
     "field": "Field",
-    "current": "Current selected cell data"
+    "current": "Current selected cell data",
+    "optionCount": "Total",
+    "follow": "Follow Me",
+    "sponsor": "Sponsor Me",
+    "optionName": "Option Name",
+    "serialNumber": "No."
   },
   "placeholder": {
     "base": "Select a table",
     "view": "Select a view",
-    "field": "Select a field"
+    "field": "Select a field",
+    "search": "Search options",
+    "optionName": "Please enter option name"
+  },
+  "button": {
+    "addOption": "Add Option",
+    "saveChanges": "Save Changes"
+  },
+  "dialog": {
+    "sponsor": {
+      "title": "💗Sponsor Me",
+      "description": "If this plugin helps you, feel free to buy me a coffee ☕",
+      "note": "Thank you for your support. QR code is for voluntary sponsorship only, not involving any goods or services.",
+      "note1": "The following two lines are drawn below."
+    }
   }
 }

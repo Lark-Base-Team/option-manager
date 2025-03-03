@@ -3,11 +3,30 @@
     "base": "数据表",
     "view": "视图",
     "field": "字段",
-    "current": "当前选中单元格数据"
+    "current": "当前选中单元格数据",
+    "optionCount": "总数",
+    "follow": "关注我",
+    "sponsor": "赞助我",
+    "optionName": "选项值名称",
+    "serialNumber": "序号"
   },
   "placeholder": {
     "base": "请选择数据表",
     "view": "请选择视图",
-    "field": "请选择字段"
+    "field": "请选择字段",
+    "search": "搜索选项",
+    "optionName": "请输入选项名称"
+  },
+  "button": {
+    "addOption": "添加选项",
+    "saveChanges": "保存修改"
+  },
+  "dialog": {
+    "sponsor": {
+      "title": "💗赞助我",
+      "description": "如果这个插件对你有帮助，欢迎赞助我一杯咖啡 ☕",
+      "note": "感谢支持，二维码仅用于自愿赞助，不涉及任何商品或服务交易",
+      "note1": "请扫描下方二维码进行赞助️"
+    }
   }
 }
