@@ -23,8 +23,9 @@
   },
   "dialog": {
     "sponsor": {
-      "title": "💗Sponsor Me",
+      "title": "💗 Sponsor Me",
       "description": "If this plugin helps you, feel free to buy me a coffee ☕",
+      "note0": "Your sponsorship will motivate me to maintain and develop the plugin more actively.",
       "note": "Thank you for your support. QR code is for voluntary sponsorship only, not involving any goods or services.",
       "note1": "The following two lines are drawn below."
     }

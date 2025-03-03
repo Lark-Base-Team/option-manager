@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 13:03
+ * @LastTime   : 2025-03-03 13:09
  * @desc       : 主要页面
 -->
 <script setup>
@@ -270,25 +270,27 @@
       <el-dialog
         v-model="showSponsorDialog"
         :title="$t('dialog.sponsor.title')"
-        width="300px"
+        width="95%"
         align-center
+        style="text-align: center"
       >
         <div class="sponsor-content">
-          <p style="margin-bottom: 8px">{{ $t('dialog.sponsor.description') }}</p>
-          <p style="color: #909399; font-size: 12px; margin-bottom: 8px">{{ $t('dialog.sponsor.note') }}</p>
-          <p style="margin-bottom: 8px">{{ $t('dialog.sponsor.note1') }}</p>
+          <p style="margin-bottom: 12px">{{ $t('dialog.sponsor.description') }}</p>
+          <p style="margin-bottom: 12px">{{ $t('dialog.sponsor.note0') }}</p>
+          <!-- <p style="color: #909399; font-size: 12px; margin-bottom: 12px">{{ $t('dialog.sponsor.note') }}</p> -->
+          <p style="margin-bottom: 12px">{{ $t('dialog.sponsor.note1') }}</p>
         </div>
         <div>
           <div>
             <img
-              style="width: 200px; height: 200px; margin-bottom: 20px"
+              style="width: 210px; height: 200px; margin-bottom: 20px"
               src="@/assets/images/wx.png"
               alt=""
             />
           </div>
           <div>
             <img
-              style="width: 200px; height: 240px"
+              style="width: 210px; height: 240px"
               src="@/assets/images/zfb.png"
               alt=""
             />
