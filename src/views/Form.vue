@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 13:18
+ * @LastTime   : 2025-03-03 13:20
  * @desc       : 主要页面
 -->
 <script setup>
@@ -462,6 +462,11 @@
   .support-button {
     flex: 1;
     font-weight: 300;
+
+    &:hover {
+      /* 放大 1.1 倍 */
+      transform: scale(1.1);
+    }
   }
 
   .label {
