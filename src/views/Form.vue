@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 13:30
+ * @LastTime   : 2025-03-03 23:19
  * @desc       : 主要页面
 -->
 <script setup>
@@ -93,18 +93,69 @@
     }
   });
 
+  // 防抖函数
+  function debounce(fn, delay) {
+    let timer = null;
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
+
+  // 检查选项名称是否重复
+  function checkDuplicateName(currentOption, name) {
+    return fieldOptions.value.some((option) => option.value !== currentOption.value && option.label === name);
+  }
+
   // 处理选项名称变更
   async function handleOptionNameChange(option) {
-    const optionIndex = fieldOptions.value.findIndex(o => o.value === option.value);
+    const optionIndex = fieldOptions.value.findIndex((o) => o.value === option.value);
     if (optionIndex !== -1) {
+      // 检查是否重复
+      const duplicateOption = fieldOptions.value.find((o) => o.value !== option.value && o.label === option.label);
+      if (duplicateOption) {
+        // 保存当前值
+        const currentLabel = option.label;
+        // 找到原始值
+        const originalOption = originalOptions.value.find((o) => o.value === option.value);
+        const originalLabel = originalOption ? originalOption.label : '';
+
+        // 显示重名确认弹窗，包含重复的选项名称
+        try {
+          await ElMessageBox.confirm(
+            t('dialog.rename.description', { name: duplicateOption.label }),
+            t('dialog.rename.title'),
+            {
+              confirmButtonText: t('button.confirm'),
+              showCancelButton: false,
+              type: 'warning',
+            },
+          );
+          // 用户点击确认，恢复原始值
+          option.label = originalLabel;
+          hasChanges.value = true;
+        } catch (err) {
+          // 用户点击取消，恢复原始值
+          option.label = originalLabel;
+        }
+        return;
+      }
       fieldOptions.value[optionIndex].label = option.label;
       hasChanges.value = true;
     }
   }
 
+  // 防抖处理的选项名称变更
+  const debouncedHandleOptionNameChange = debounce((option) => {
+    fieldOptions.value.find((o) => o.value === option.value).label = option.label;
+    hasChanges.value = true;
+  }, 500);
+
   // 处理删除选项
   function handleDeleteOption(option) {
-    const optionIndex = fieldOptions.value.findIndex(o => o.value === option.value);
+    const optionIndex = fieldOptions.value.findIndex((o) => o.value === option.value);
     if (optionIndex !== -1) {
       fieldOptions.value.splice(optionIndex, 1);
       hasChanges.value = true;
@@ -113,10 +164,20 @@
 
   // 处理添加选项
   function handleAddOption() {
-    fieldOptions.value.push({
+    // 添加空选项名称校验
+    const newOption = {
       label: '',
       value: `temp_${Date.now()}`, // 使用临时ID
-    });
+    };
+
+    // 检查是否已存在相同名称的选项
+    const isDuplicate = fieldOptions.value.some((option) => option.label === newOption.label);
+    if (isDuplicate) {
+      ElMessage.warning('选项名称已存在，请输入其他名称');
+      return;
+    }
+
+    fieldOptions.value.push(newOption);
     hasChanges.value = true;
 
     // 等待DOM更新后执行滚动和聚焦
@@ -411,7 +472,8 @@
               <el-input
                 v-model="row.label"
                 size="small"
-                @change="handleOptionNameChange(row)"
+                @input="debouncedHandleOptionNameChange(row)"
+                @blur="handleOptionNameChange(row)"
                 :placeholder="$t('placeholder.optionName')"
               />
             </template>

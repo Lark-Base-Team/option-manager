@@ -19,7 +19,8 @@
   },
   "button": {
     "addOption": "添加选项",
-    "saveChanges": "保存修改"
+    "saveChanges": "保存修改",
+    "confirm": "确认"
   },
   "dialog": {
     "sponsor": {
@@ -27,6 +28,10 @@
       "description": "如果这个插件对您有帮助，欢迎赞助我一杯咖啡 ☕",
       "note0": "您的赞助可以激励我更加积极的维护和开发插件的功能",
       "note1": "请扫描下方二维码进行赞助️"
+    },
+    "rename": {
+      "title": "重命名失败",
+      "description": "选项 \"{name}\" 已存在，请输入其他名称"
     }
   }
 }
