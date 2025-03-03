@@ -19,9 +19,9 @@
     "batchAddOptions": "Please enter options, one per line"
   },
   "button": {
-    "addOption": "Add Option",
+    "addOption": "Add Single",
     "batchAddOptions": "Batch Add",
-    "saveChanges": "Save Changes",
+    "saveChanges": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm"
   },

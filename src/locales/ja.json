@@ -19,9 +19,9 @@
     "batchAddOptions": "オプションを入力してください（1行に1つ）"
   },
   "button": {
-    "addOption": "オプションを追加",
+    "addOption": "単一追加",
     "batchAddOptions": "一括追加",
-    "saveChanges": "変更を保存",
+    "saveChanges": "保存",
     "cancel": "キャンセル",
     "confirm": "確認する"
   },

@@ -19,9 +19,9 @@
     "batchAddOptions": "请输入选项，每行一个"
   },
   "button": {
-    "addOption": "添加选项",
+    "addOption": "单个添加",
     "batchAddOptions": "批量添加",
-    "saveChanges": "保存修改",
+    "saveChanges": "保存",
     "cancel": "取消",
     "confirm": "确认"
   },

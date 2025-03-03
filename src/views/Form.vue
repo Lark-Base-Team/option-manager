@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 00:02
+ * @LastTime   : 2025-03-04 01:19
  * @desc       : 主要页面
 -->
 <script setup>
@@ -353,30 +353,32 @@
           cancelButtonText: t('button.cancel'),
           type: 'warning',
         },
-      ).then(() => {
-        // 用户确认后，仅添加非重复的选项
-        const uniqueOptions = newOptions.filter((name) => !duplicateNames.includes(name));
-        uniqueOptions.forEach((name) => {
-          fieldOptions.value.push({
-            label: name,
-            value: `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      )
+        .then(() => {
+          // 用户确认后，仅添加非重复的选项
+          const uniqueOptions = newOptions.filter((name) => !duplicateNames.includes(name));
+          uniqueOptions.forEach((name) => {
+            fieldOptions.value.push({
+              label: name,
+              value: `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            });
           });
-        });
 
-        hasChanges.value = true;
-        showBatchAddDialog.value = false;
-        batchInputText.value = '';
+          hasChanges.value = true;
+          showBatchAddDialog.value = false;
+          batchInputText.value = '';
 
-        // 滚动到底部
-        nextTick(() => {
-          const optionsContainer = document.querySelector('.options-container');
-          if (optionsContainer) {
-            optionsContainer.scrollTop = optionsContainer.scrollHeight;
-          }
+          // 滚动到底部
+          nextTick(() => {
+            const optionsContainer = document.querySelector('.options-container');
+            if (optionsContainer) {
+              optionsContainer.scrollTop = optionsContainer.scrollHeight;
+            }
+          });
+        })
+        .catch(() => {
+          // 用户取消操作，不做任何处理
         });
-      }).catch(() => {
-        // 用户取消操作，不做任何处理
-      });
       return;
     }
 
@@ -591,37 +593,66 @@
           >
             <template #default="{ row, $index }">
               <el-button
-                type="danger"
+                type="text"
                 size="small"
                 @click="handleDeleteOption(row, $index)"
-                :icon="Delete"
-                circle
-              />
+                style="
+                  padding: 0;
+                  width: 32px;
+                  height: 32px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #999;
+                  transition: color 0.2s;
+                "
+                class="delete-btn"
+              >
+                <span style="font-size: 22px; line-height: 1">×</span>
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
         <div class="options-footer">
           <div class="options-actions">
-            <el-button
-              type="primary"
-              @click="handleAddOption"
-              :icon="Plus"
-              style="margin-right: 12px"
-              >{{ $t('button.addOption') }}</el-button
-            >
-            <el-button
-              type="primary"
-              @click="handleBatchAddOptions"
-              :icon="Plus"
-              style="margin-right: 12px"
-              >{{ $t('button.batchAddOptions') }}</el-button
-            >
+            <div class="add-buttons">
+              <el-button
+                type="primary"
+                @click="handleAddOption"
+                :icon="Plus"
+                style="
+                  background-color: #ffffff;
+                  border: 1px solid #0442d2;
+                  color: #0442d2;
+                  font-weight: 500;
+                  padding: 8px 16px;
+                  border-radius: 4px;
+                "
+                >{{ $t('button.addOption') }}</el-button
+              >
+              <el-button
+                type="primary"
+                @click="handleBatchAddOptions"
+                :icon="Plus"
+                style="
+                  background-color: #ffffff;
+                  border: 1px solid #0442d2;
+                  color: #0442d2;
+                  font-weight: 500;
+                  padding: 8px 16px;
+                  border-radius: 4px;
+                "
+                >{{ $t('button.batchAddOptions') }}</el-button
+              >
+            </div>
             <el-button
               type="success"
               @click="handleSaveChanges"
               :disabled="!hasChanges"
               :loading="loading"
               :icon="Check"
+              class="save-button"
+              style="background-color: #0442d2; border: none; font-weight: 500; padding: 8px 16px; border-radius: 4px"
               >{{ $t('button.saveChanges') }}</el-button
             >
           </div>
@@ -699,9 +730,29 @@
   }
 
   .options-footer {
-    margin-top: 12px;
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .options-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .add-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .add-buttons .el-button {
+    flex: 1;
+  }
+
+  .save-button {
+    width: 100%;
   }
 
   .drag-handle {
