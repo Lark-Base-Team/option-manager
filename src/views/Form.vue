@@ -40,6 +40,16 @@
     viewList.value = await table.getViewMetaList();
     viewId.value = selection.viewId;
 
+    // 监听视图变更事件
+    const off = base.onSelectionChange((event) => {
+      if (event.data.tableId === databaseId.value) {
+        // 视图变更时更新视图列表
+        table.getViewMetaList().then(views => {
+          viewList.value = views;
+        });
+      }
+    });
+
     // 获取字段列表并自动选中第一个单选/多选字段
     const view = await table.getViewById(viewId.value);
     const _list = await view.getFieldMetaList();
