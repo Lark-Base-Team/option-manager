@@ -95,13 +95,20 @@
 
   // 处理选项名称变更
   async function handleOptionNameChange(option) {
-    hasChanges.value = true;
+    const optionIndex = fieldOptions.value.findIndex(o => o.value === option.value);
+    if (optionIndex !== -1) {
+      fieldOptions.value[optionIndex].label = option.label;
+      hasChanges.value = true;
+    }
   }
 
   // 处理删除选项
-  function handleDeleteOption(option, index) {
-    fieldOptions.value.splice(index, 1);
-    hasChanges.value = true;
+  function handleDeleteOption(option) {
+    const optionIndex = fieldOptions.value.findIndex(o => o.value === option.value);
+    if (optionIndex !== -1) {
+      fieldOptions.value.splice(optionIndex, 1);
+      hasChanges.value = true;
+    }
   }
 
   // 处理添加选项
