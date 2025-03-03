@@ -15,14 +15,20 @@
     "view": "ビューを選択してください",
     "field": "フィールドを選択してください",
     "search": "オプションを検索",
-    "optionName": "オプション名を入力してください"
+    "optionName": "オプション名を入力してください",
+    "batchAddOptions": "オプションを入力してください（1行に1つ）"
   },
   "button": {
     "addOption": "オプションを追加",
+    "batchAddOptions": "一括追加",
     "saveChanges": "変更を保存",
+    "cancel": "キャンセル",
     "confirm": "確認する"
   },
   "dialog": {
+    "batchAdd": {
+      "title": "オプションの一括追加"
+    },
     "sponsor": {
       "title": "💗 支援する",
       "description": "このプラグインが役立った場合は、コーヒー一杯分の支援をお願いします ☕",
@@ -33,5 +39,10 @@
       "title": "名前の変更に失敗しました",
       "description": "名前\"{name}\"は既に存在します。別の名前を入力してください"
     }
+  },
+  "message": {
+    "emptyOptions": "少なくとも1つのオプションを入力してください",
+    "duplicateOptions": "以下のオプション名は既に存在します：{names} ,自動的にスキップされます",
+    "batchAddSuccess": "{count}個のオプションを追加しました"
   }
 }

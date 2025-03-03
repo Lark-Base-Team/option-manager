@@ -15,14 +15,20 @@
     "view": "Select a view",
     "field": "Select a field",
     "search": "Search options",
-    "optionName": "Please enter option name"
+    "optionName": "Please enter option name",
+    "batchAddOptions": "Please enter options, one per line"
   },
   "button": {
     "addOption": "Add Option",
+    "batchAddOptions": "Batch Add",
     "saveChanges": "Save Changes",
+    "cancel": "Cancel",
     "confirm": "Confirm"
   },
   "dialog": {
+    "batchAdd": {
+      "title": "Batch Add Options"
+    },
     "sponsor": {
       "title": "💗 Sponsor Me",
       "description": "If this plugin helps you, feel free to buy me a coffee ☕",
@@ -33,5 +39,10 @@
       "title": "Rename Failed",
       "description": "The name already exists, please enter another name"
     }
+  },
+  "message": {
+    "emptyOptions": "Please enter at least one option",
+    "duplicateOptions": "The following option names already exist: {names} ,will be skipped automatically",
+    "batchAddSuccess": "Successfully added {count} options"
   }
 }

@@ -15,14 +15,20 @@
     "view": "请选择视图",
     "field": "请选择字段",
     "search": "搜索选项",
-    "optionName": "请输入选项名称"
+    "optionName": "请输入选项名称",
+    "batchAddOptions": "请输入选项，每行一个"
   },
   "button": {
     "addOption": "添加选项",
+    "batchAddOptions": "批量添加",
     "saveChanges": "保存修改",
+    "cancel": "取消",
     "confirm": "确认"
   },
   "dialog": {
+    "batchAdd": {
+      "title": "批量添加选项"
+    },
     "sponsor": {
       "title": "💗 赞助我",
       "description": "如果这个插件对您有帮助，欢迎赞助我一杯咖啡 ☕",
@@ -33,5 +39,10 @@
       "title": "重命名失败",
       "description": "选项 \"{name}\" 已存在，请输入其他名称"
     }
+  },
+  "message": {
+    "emptyOptions": "请输入至少一个选项",
+    "duplicateOptions": "以下选项名称已存在：{names} ,将被自动跳过",
+    "batchAddSuccess": "成功添加 {count} 个选项"
   }
 }

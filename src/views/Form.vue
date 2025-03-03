@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 23:24
+ * @LastTime   : 2025-03-04 00:02
  * @desc       : 主要页面
 -->
 <script setup>
@@ -117,7 +117,8 @@
       const duplicateOption = fieldOptions.value.find((o) => o.value !== option.value && o.label === option.label);
       if (duplicateOption) {
         // 获取最近一次有效值
-        const lastValidLabel = originalOptions.value.find(o => o.value === option.value)?.label || fieldOptions.value[optionIndex].label;
+        const lastValidLabel =
+          originalOptions.value.find((o) => o.value === option.value)?.label || fieldOptions.value[optionIndex].label;
 
         // 显示重名确认弹窗
         try {
@@ -318,6 +319,89 @@
   const handleSponsorClick = () => {
     showSponsorDialog.value = true;
   };
+
+  // 控制批量添加弹窗的显示
+  const showBatchAddDialog = ref(false);
+  const batchInputText = ref('');
+
+  // 处理批量添加选项
+  const handleBatchAddOptions = () => {
+    showBatchAddDialog.value = true;
+  };
+
+  // 处理批量添加确认
+  const handleBatchAddConfirm = () => {
+    if (!batchInputText.value.trim()) {
+      ElMessage.warning(t('message.emptyInput'));
+      return;
+    }
+
+    const newOptions = batchInputText.value
+      .split('\n')
+      .map((text) => text.trim())
+      .filter((text) => text); // 过滤空行
+
+    // 检查重复选项
+    const duplicateNames = newOptions.filter((name) => fieldOptions.value.some((option) => option.label === name));
+
+    if (duplicateNames.length > 0) {
+      ElMessageBox.confirm(
+        t('message.duplicateOptions', { names: duplicateNames.join('\n') }),
+        t('dialog.batchAdd.title'),
+        {
+          confirmButtonText: t('button.confirm'),
+          cancelButtonText: t('button.cancel'),
+          type: 'warning',
+        },
+      ).then(() => {
+        // 用户确认后，仅添加非重复的选项
+        const uniqueOptions = newOptions.filter((name) => !duplicateNames.includes(name));
+        uniqueOptions.forEach((name) => {
+          fieldOptions.value.push({
+            label: name,
+            value: `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          });
+        });
+
+        hasChanges.value = true;
+        showBatchAddDialog.value = false;
+        batchInputText.value = '';
+
+        // 滚动到底部
+        nextTick(() => {
+          const optionsContainer = document.querySelector('.options-container');
+          if (optionsContainer) {
+            optionsContainer.scrollTop = optionsContainer.scrollHeight;
+          }
+        });
+      }).catch(() => {
+        // 用户取消操作，不做任何处理
+      });
+      return;
+    }
+
+    // 添加新选项
+    newOptions.forEach((name) => {
+      fieldOptions.value.push({
+        label: name,
+        value: `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      });
+    });
+
+    hasChanges.value = true;
+    showBatchAddDialog.value = false;
+    batchInputText.value = '';
+
+    // 滚动到底部
+    nextTick(() => {
+      const tableContainer = document.querySelector('.el-table__body-wrapper');
+      if (tableContainer) {
+        tableContainer.scrollTop = tableContainer.scrollHeight;
+      }
+    });
+
+    ElMessage.success(t('message.batchAddSuccess', { count: newOptions.length }));
+  };
 </script>
 
 <template>
@@ -380,6 +464,31 @@
             />
           </div>
         </div>
+      </el-dialog>
+      <!-- 批量添加弹窗 -->
+      <el-dialog
+        v-model="showBatchAddDialog"
+        :title="$t('dialog.batchAdd.title')"
+        width="500px"
+        align-center
+      >
+        <el-input
+          v-model="batchInputText"
+          type="textarea"
+          :rows="10"
+          :placeholder="$t('placeholder.batchAddOptions')"
+        />
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="showBatchAddDialog = false">{{ $t('button.cancel') }}</el-button>
+            <el-button
+              type="primary"
+              @click="handleBatchAddConfirm"
+            >
+              {{ $t('button.confirm') }}
+            </el-button>
+          </span>
+        </template>
       </el-dialog>
       <el-button
         type="primary"
@@ -499,6 +608,13 @@
               :icon="Plus"
               style="margin-right: 12px"
               >{{ $t('button.addOption') }}</el-button
+            >
+            <el-button
+              type="primary"
+              @click="handleBatchAddOptions"
+              :icon="Plus"
+              style="margin-right: 12px"
+              >{{ $t('button.batchAddOptions') }}</el-button
             >
             <el-button
               type="success"
