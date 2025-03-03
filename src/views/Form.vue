@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-03 13:21
+ * @LastTime   : 2025-03-03 13:30
  * @desc       : 主要页面
 -->
 <script setup>
@@ -378,7 +378,7 @@
             clearable
             style="width: calc(100% - 80px)"
           />
-          <div style="font-size: 12px; color: #909399; display: flex; align-items: center">
+          <div style="font-size: 14px; color: #909399; display: flex; align-items: center">
             {{ $t('label.optionCount') }}：<span style="color: #0442d2">{{ filteredOptions.length }}</span>
           </div>
         </div>
