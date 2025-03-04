@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 13:05
+ * @LastTime   : 2025-03-04 13:16
  * @desc       : 主要页面
 -->
 <script setup>
@@ -817,6 +817,7 @@
                   transition: color 0.2s;
                   font-size: 14px;
                 "
+                :class="{ 'refresh-btn-hover': true }"
               >
                 <el-icon><Refresh /></el-icon>
                 {{ $t('button.reset') }}
@@ -838,8 +839,8 @@
                   transition: color 0.2s;
                   font-size: 16px;
                 "
+                class="custom-button"
                 :class="{ 'delete-btn-hover': true }"
-                class="delete-btn"
               >
                 <el-icon><CloseBold /></el-icon>
               </el-button>
@@ -918,12 +919,32 @@
 </template>
 
 <style scoped>
+  .custom-button:hover {
+    color: #999 !important;
+  }
+
+  .refresh-btn-hover:hover {
+    color: #e6a23c !important;
+  }
+
   .delete-btn-hover:hover {
-    color: #409eff !important;
+    color: #ff4d4f !important;
   }
 
   .delete-btn:hover {
-    color: #409eff !important;
+    color: #999 !important;
+  }
+
+  :deep(.el-button--danger.is-plain:hover) {
+    color: #ff4d4f !important;
+    border-color: #ff4d4f !important;
+    background-color: #fff !important;
+  }
+
+  :deep(.el-button--primary.is-plain:hover) {
+    color: #0442d2 !important;
+    border-color: #0442d2 !important;
+    background-color: #fff !important;
   }
   .main {
     font-weight: normal;
