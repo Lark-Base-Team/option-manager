@@ -379,6 +379,7 @@
   const handleEnterKeydown = async ($index) => {
     const option = fieldOptions.value[$index];
     if (!option) return;
+    
     // 检查是否重复
     const duplicateOption = fieldOptions.value.find((o) => o.value !== option.value && o.label === option.label);
     if (duplicateOption) {
@@ -405,6 +406,12 @@
         // 重置hasChanges状态
         hasChanges.value = false;
       }
+      return;
+    }
+    
+    // 如果是最后一行且输入框不为空，则添加新选项
+    if ($index === fieldOptions.value.length - 1 && option.label.trim() !== '') {
+      handleAddOption();
       return;
     }
 
