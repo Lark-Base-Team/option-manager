@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 13:56
+ * @LastTime   : 2025-03-04 13:58
  * @desc       : 主要页面
 -->
 <script setup>
@@ -934,9 +934,9 @@
   }
 
   :deep(.el-button--primary.is-plain:hover) {
-    color: #0442d2 !important;
-    border-color: #0442d2 !important;
-    background-color: #fff !important;
+    /* color: #0442d2 !important; */
+    /* border-color: #0442d2 !important; */
+    /* background-color: #fff !important; */
   }
   .main {
     font-weight: normal;
