@@ -44,7 +44,7 @@
     const off = base.onSelectionChange((event) => {
       if (event.data.tableId === databaseId.value) {
         // 视图变更时更新视图列表
-        table.getViewMetaList().then(views => {
+        table.getViewMetaList().then((views) => {
           viewList.value = views;
         });
       }
@@ -633,6 +633,7 @@
                   color: #999;
                   transition: color 0.2s;
                 "
+                :class="{ 'delete-btn-hover': true }"
                 class="delete-btn"
               >
                 <span style="font-size: 22px; line-height: 1">×</span>
@@ -786,6 +787,10 @@
     cursor: move;
     color: #999;
   }
+
+  .delete-btn-hover:hover {
+    color: #ff4d4f !important;
+  }
 </style>
 
 <style>
@@ -797,5 +802,9 @@
     .el-select-dropdown__item.selected {
       color: rgb(20, 86, 240);
     }
+  }
+
+  .el-table .el-table__cell {
+    padding: 2px 0 !important;
   }
 </style>
