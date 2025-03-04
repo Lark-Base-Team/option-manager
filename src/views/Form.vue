@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 13:48
+ * @LastTime   : 2025-03-04 13:56
  * @desc       : 主要页面
 -->
 <script setup>
@@ -735,7 +735,16 @@
           >
             <template #append>
               <div
-                style="padding: 0 8px; font-size: 13px; color: #666; display: flex; align-items: center; height: 28px"
+                style="
+                  padding: 0 8px;
+                  font-size: 13px;
+                  color: #666;
+                  display: flex;
+                  align-items: center;
+                  height: 28px;
+                  width: 60px;
+                  justify-content: center;
+                "
               >
                 <span style="color: #0442d2; font-weight: 500">{{ selectedOptions.length }}</span>
                 <span style="margin: 0 2px">/</span>
@@ -1088,5 +1097,9 @@
   .el-checkbox__input.is-checked .el-checkbox__inner {
     background-color: rgb(20, 86, 240) !important;
     border-color: rgb(20, 86, 240) !important;
+  }
+
+  .el-input-group__append {
+    padding: 0 !important;
   }
 </style>
