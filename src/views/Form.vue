@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 13:16
+ * @LastTime   : 2025-03-04 13:35
  * @desc       : 主要页面
 -->
 <script setup>
@@ -81,14 +81,9 @@
     }
   };
 
-  // 处理单个选项的选择
-  const handleSelect = (optionValue) => {
-    const index = selectedOptions.value.indexOf(optionValue);
-    if (index === -1) {
-      selectedOptions.value.push(optionValue);
-    } else {
-      selectedOptions.value.splice(index, 1);
-    }
+  // 处理表格选择变更
+  const handleSelect = (selection) => {
+    selectedOptions.value = selection.map((item) => item.value);
   };
 
   // 处理批量删除选中的选项
@@ -750,31 +745,19 @@
           </el-input>
         </div>
         <el-table
+          ref="tableRef"
           :data="filteredOptions"
           style="width: 100%"
           row-key="value"
           :max-height="400"
           v-loading="loading"
+          @selection-change="handleSelect"
         >
           <el-table-column
             type="selection"
             width="55"
             align="center"
-            @selection-change="handleSelect"
-          >
-            <template #header>
-              <el-checkbox
-                v-model="isAllSelected"
-                @change="handleSelectAll"
-              />
-            </template>
-            <template #default="{ row }">
-              <el-checkbox
-                :value="selectedOptions.includes(row.value)"
-                @change="() => handleSelect(row.value)"
-              />
-            </template>
-          </el-table-column>
+          />
           <el-table-column
             type="index"
             width="60"
