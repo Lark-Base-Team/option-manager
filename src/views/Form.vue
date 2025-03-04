@@ -3,12 +3,12 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 11:18
+ * @LastTime   : 2025-03-04 11:26
  * @desc       : 主要页面
 -->
 <script setup>
   import { bitable } from '@lark-base-open/js-sdk';
-  import { Plus, Delete, Rank, Check, Star, User, Refresh, CloseBold } from '@element-plus/icons-vue';
+  import { Plus, Delete, Rank, Check, Star, User, Refresh, CloseBold, Remove } from '@element-plus/icons-vue';
   import { ElMessage } from 'element-plus';
 
   // 国际化
@@ -807,35 +807,57 @@
         </el-table>
         <div class="options-footer">
           <div class="options-actions">
-            <div class="add-buttons">
-              <el-button
-                type="primary"
-                @click="handleAddOption"
-                :icon="Plus"
-                style="
-                  background-color: #ffffff;
-                  border: 1px solid #0442d2;
-                  color: #0442d2;
-                  font-weight: 500;
-                  padding: 8px 16px;
-                  border-radius: 4px;
-                "
-                >{{ $t('button.addOption') }}</el-button
-              >
-              <el-button
-                type="primary"
-                @click="handleBatchAddOptions"
-                :icon="Plus"
-                style="
-                  background-color: #ffffff;
-                  border: 1px solid #0442d2;
-                  color: #0442d2;
-                  font-weight: 500;
-                  padding: 8px 16px;
-                  border-radius: 4px;
-                "
-                >{{ $t('button.batchAddOptions') }}</el-button
-              >
+            <div class="button-groups">
+              <div class="button-row">
+                <el-button
+                  type="primary"
+                  @click="handleAddOption"
+                  :icon="Plus"
+                  style="
+                    background-color: #ffffff;
+                    border: 1px solid #0442d2;
+                    color: #0442d2;
+                    font-weight: 500;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    flex: 1;
+                  "
+                  >{{ $t('button.addOption') }}</el-button
+                >
+                <el-button
+                  type="primary"
+                  @click="handleBatchAddOptions"
+                  :icon="Plus"
+                  style="
+                    background-color: #ffffff;
+                    border: 1px solid #0442d2;
+                    color: #0442d2;
+                    font-weight: 500;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    flex: 1;
+                  "
+                  >{{ $t('button.batchAddOptions') }}</el-button
+                >
+              </div>
+              <div class="button-row">
+                <el-button
+                  type="danger"
+                  plain
+                  @click="handleBatchDelete"
+                  :icon="Delete"
+                  style="background-color: #ffffff; font-weight: 500; padding: 8px 16px; border-radius: 4px; flex: 1"
+                  >批量删除</el-button
+                >
+                <el-button
+                  plain
+                  type="danger"
+                  @click="handleRemoveDuplicates"
+                  :icon="Remove"
+                  style="background-color: #ffffff; font-weight: 500; padding: 8px 16px; border-radius: 4px; flex: 1"
+                  >去除重复</el-button
+                >
+              </div>
             </div>
             <el-button
               type="success"
@@ -941,7 +963,13 @@
     gap: 12px;
   }
 
-  .add-buttons {
+  .button-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .button-row {
     display: flex;
     gap: 12px;
   }
