@@ -38,11 +38,16 @@
     "rename": {
       "title": "名前の変更に失敗しました",
       "description": "名前\"{name}\"は既に存在します。別の名前を入力してください"
+    },
+    "reset": {
+      "title": "リセット確認",
+      "description": "すべての変更をリセットしてもよろしいですか？最後に保存した状態に戻ります。"
     }
   },
   "message": {
     "emptyOptions": "少なくとも1つのオプションを入力してください",
     "duplicateOptions": "以下のオプション名は既に存在します：{names} ,自動的にスキップされます",
-    "batchAddSuccess": "{count}個のオプションを追加しました"
+    "batchAddSuccess": "{count}個のオプションを追加しました",
+    "resetSuccess": "リセットが完了しました"
   }
 }

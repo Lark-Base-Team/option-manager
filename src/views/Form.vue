@@ -8,7 +8,7 @@
 -->
 <script setup>
   import { bitable } from '@lark-base-open/js-sdk';
-  import { Plus, Delete, Rank, Check, Star, User } from '@element-plus/icons-vue';
+  import { Plus, Delete, Rank, Check, Star, User, Refresh } from '@element-plus/icons-vue';
   import { ElMessage } from 'element-plus';
 
   // 国际化
@@ -357,6 +357,27 @@
   };
 
   // 处理批量添加确认
+  // 添加重置功能
+  const handleReset = () => {
+    ElMessageBox.confirm(
+      t('dialog.reset.description'),
+      t('dialog.reset.title'),
+      {
+        confirmButtonText: t('button.confirm'),
+        cancelButtonText: t('button.cancel'),
+        type: 'warning',
+      },
+    ).then(() => {
+      // 恢复到原始数据
+      fieldOptions.value = JSON.parse(JSON.stringify(originalOptions.value));
+      // 清除未保存状态
+      hasChanges.value = false;
+      ElMessage.success(t('message.resetSuccess'));
+    }).catch(() => {
+      // 用户取消操作，不做任何处理
+    });
+  };
+
   const handleBatchAddConfirm = () => {
     if (!batchInputText.value.trim()) {
       ElMessage.warning(t('message.emptyInput'));
@@ -618,6 +639,27 @@
             width="80"
             align="center"
           >
+            <template #header>
+              <el-button
+                type="text"
+                size="small"
+                @click="handleReset"
+                style="
+                  padding: 0;
+                  width: 32px;
+                  height: 32px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: #999;
+                  transition: color 0.2s;
+                "
+                :class="{ 'delete-btn-hover': true }"
+                class="delete-btn"
+              >
+                <el-icon><Refresh /></el-icon>
+              </el-button>
+            </template>
             <template #default="{ row, $index }">
               <el-button
                 type="text"
@@ -636,7 +678,7 @@
                 :class="{ 'delete-btn-hover': true }"
                 class="delete-btn"
               >
-                <span style="font-size: 22px; line-height: 1">×</span>
+                <el-icon><Delete /></el-icon>
               </el-button>
             </template>
           </el-table-column>
@@ -691,6 +733,13 @@
 </template>
 
 <style scoped>
+.delete-btn-hover:hover {
+  color: #409eff !important;
+}
+
+.delete-btn:hover {
+  color: #409eff !important;
+}
   .main {
     font-weight: normal;
   }

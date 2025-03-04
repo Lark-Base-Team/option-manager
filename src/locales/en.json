@@ -38,11 +38,16 @@
     "rename": {
       "title": "Rename Failed",
       "description": "The name already exists, please enter another name"
+    },
+    "reset": {
+      "title": "Reset Confirmation",
+      "description": "Are you sure you want to reset all changes? This will restore to the last saved state."
     }
   },
   "message": {
     "emptyOptions": "Please enter at least one option",
     "duplicateOptions": "The following option names already exist: {names} ,will be skipped automatically",
-    "batchAddSuccess": "Successfully added {count} options"
+    "batchAddSuccess": "Successfully added {count} options",
+    "resetSuccess": "Reset successful"
   }
 }

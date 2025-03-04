@@ -38,11 +38,16 @@
     "rename": {
       "title": "重命名失败",
       "description": "选项 \"{name}\" 已存在，请输入其他名称"
+    },
+    "reset": {
+      "title": "重置确认",
+      "description": "确定要重置所有更改吗？此操作将恢复到最近一次保存的状态。"
     }
   },
   "message": {
     "emptyOptions": "请输入至少一个选项",
     "duplicateOptions": "以下选项名称已存在：{names} ,将被自动跳过",
-    "batchAddSuccess": "成功添加 {count} 个选项"
+    "batchAddSuccess": "成功添加 {count} 个选项",
+    "resetSuccess": "重置成功"
   }
 }
