@@ -3,12 +3,12 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 08:19
+ * @LastTime   : 2025-03-04 09:47
  * @desc       : 主要页面
 -->
 <script setup>
   import { bitable } from '@lark-base-open/js-sdk';
-  import { Plus, Delete, Rank, Check, Star, User, Refresh } from '@element-plus/icons-vue';
+  import { Plus, Delete, Rank, Check, Star, User, Refresh, CloseBold } from '@element-plus/icons-vue';
   import { ElMessage } from 'element-plus';
 
   // 国际化
@@ -359,23 +359,21 @@
   // 处理批量添加确认
   // 添加重置功能
   const handleReset = () => {
-    ElMessageBox.confirm(
-      t('dialog.reset.description'),
-      t('dialog.reset.title'),
-      {
-        confirmButtonText: t('button.confirm'),
-        cancelButtonText: t('button.cancel'),
-        type: 'warning',
-      },
-    ).then(() => {
-      // 恢复到原始数据
-      fieldOptions.value = JSON.parse(JSON.stringify(originalOptions.value));
-      // 清除未保存状态
-      hasChanges.value = false;
-      ElMessage.success(t('message.resetSuccess'));
-    }).catch(() => {
-      // 用户取消操作，不做任何处理
-    });
+    ElMessageBox.confirm(t('dialog.reset.description'), t('dialog.reset.title'), {
+      confirmButtonText: t('button.confirm'),
+      cancelButtonText: t('button.cancel'),
+      type: 'warning',
+    })
+      .then(() => {
+        // 恢复到原始数据
+        fieldOptions.value = JSON.parse(JSON.stringify(originalOptions.value));
+        // 清除未保存状态
+        hasChanges.value = false;
+        ElMessage.success(t('message.resetSuccess'));
+      })
+      .catch(() => {
+        // 用户取消操作，不做任何处理
+      });
   };
 
   const handleBatchAddConfirm = () => {
@@ -653,6 +651,7 @@
                   justify-content: center;
                   color: #999;
                   transition: color 0.2s;
+                  font-size: 18px;
                 "
                 :class="{ 'delete-btn-hover': true }"
                 class="delete-btn"
@@ -674,11 +673,12 @@
                   justify-content: center;
                   color: #999;
                   transition: color 0.2s;
+                  font-size: 16px;
                 "
                 :class="{ 'delete-btn-hover': true }"
                 class="delete-btn"
               >
-                <el-icon><Delete /></el-icon>
+                <el-icon><CloseBold /></el-icon>
               </el-button>
             </template>
           </el-table-column>
@@ -733,13 +733,13 @@
 </template>
 
 <style scoped>
-.delete-btn-hover:hover {
-  color: #409eff !important;
-}
+  .delete-btn-hover:hover {
+    color: #409eff !important;
+  }
 
-.delete-btn:hover {
-  color: #409eff !important;
-}
+  .delete-btn:hover {
+    color: #409eff !important;
+  }
   .main {
     font-weight: normal;
   }
