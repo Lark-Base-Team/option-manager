@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 13:43
+ * @LastTime   : 2025-03-04 13:48
  * @desc       : 主要页面
 -->
 <script setup>
@@ -1073,5 +1073,20 @@
     &:hover {
       border-color: #0442d2;
     }
+  }
+
+  /* 放大表格中的复选框 */
+  .el-table .el-checkbox {
+    transform: scale(1.3);
+  }
+
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: rgb(20, 86, 240) !important;
+    border-color: rgb(20, 86, 240) !important;
+  }
+
+  .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: rgb(20, 86, 240) !important;
+    border-color: rgb(20, 86, 240) !important;
   }
 </style>
