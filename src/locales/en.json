@@ -14,7 +14,7 @@
     "base": "Select a table",
     "view": "Select a view",
     "field": "Select a field",
-    "search": "Search options",
+    "search": "Please enter option value",
     "optionName": "Please enter option name",
     "batchAddOptions": "Please enter options, one per line"
   },

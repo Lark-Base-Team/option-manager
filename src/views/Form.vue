@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 01:19
+ * @LastTime   : 2025-03-04 08:17
  * @desc       : 主要页面
 -->
 <script setup>
@@ -698,7 +698,7 @@
   .support-buttons {
     display: flex;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .support-button {
@@ -714,7 +714,7 @@
   .label {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     .text {
       width: 70px;
