@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 09:47
+ * @LastTime   : 2025-03-04 11:18
  * @desc       : 主要页面
 -->
 <script setup>
@@ -67,6 +67,56 @@
   const selectedOption = ref();
   const originalOptions = ref([]); // 保存原始选项数据
   const hasChanges = ref(false); // 标记是否有未保存的修改
+  const selectedOptions = ref([]); // 选中的选项
+  const isAllSelected = computed(() => {
+    return fieldOptions.value.length > 0 && selectedOptions.value.length === fieldOptions.value.length;
+  });
+
+  // 处理全选/取消全选
+  const handleSelectAll = () => {
+    if (isAllSelected.value) {
+      selectedOptions.value = [];
+    } else {
+      selectedOptions.value = fieldOptions.value.map((option) => option.value);
+    }
+  };
+
+  // 处理单个选项的选择
+  const handleSelect = (optionValue) => {
+    const index = selectedOptions.value.indexOf(optionValue);
+    if (index === -1) {
+      selectedOptions.value.push(optionValue);
+    } else {
+      selectedOptions.value.splice(index, 1);
+    }
+  };
+
+  // 处理批量删除选中的选项
+  const handleBatchDelete = async () => {
+    if (selectedOptions.value.length === 0) {
+      ElMessage.warning(t('message.selectOptionsFirst'));
+      return;
+    }
+
+    try {
+      await ElMessageBox.confirm(
+        t('dialog.batchDelete.description', { count: selectedOptions.value.length }),
+        t('dialog.batchDelete.title'),
+        {
+          confirmButtonText: t('button.confirm'),
+          cancelButtonText: t('button.cancel'),
+          type: 'warning',
+        },
+      );
+
+      fieldOptions.value = fieldOptions.value.filter((option) => !selectedOptions.value.includes(option.value));
+      selectedOptions.value = [];
+      hasChanges.value = true;
+      ElMessage.success(t('message.batchDeleteSuccess'));
+    } catch (error) {
+      // 用户取消删除操作
+    }
+  };
 
   // 监听选择的字段变化，获取字段选项值
   watch(selectFieldId, async (newValue) => {
@@ -379,7 +429,7 @@
   const handleEnterKeydown = async ($index) => {
     const option = fieldOptions.value[$index];
     if (!option) return;
-    
+
     // 检查是否重复
     const duplicateOption = fieldOptions.value.find((o) => o.value !== option.value && o.label === option.label);
     if (duplicateOption) {
@@ -408,7 +458,7 @@
       }
       return;
     }
-    
+
     // 如果是最后一行且输入框不为空，则添加新选项
     if ($index === fieldOptions.value.length - 1 && option.label.trim() !== '') {
       handleAddOption();
@@ -665,6 +715,25 @@
           v-loading="loading"
         >
           <el-table-column
+            type="selection"
+            width="55"
+            align="center"
+            @selection-change="handleSelect"
+          >
+            <template #header>
+              <el-checkbox
+                v-model="isAllSelected"
+                @change="handleSelectAll"
+              />
+            </template>
+            <template #default="{ row }">
+              <el-checkbox
+                :value="selectedOptions.includes(row.value)"
+                @change="() => handleSelect(row.value)"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             type="index"
             width="60"
             align="center"
@@ -908,5 +977,28 @@
 
   .el-table .el-table__cell {
     padding: 2px 0 !important;
+  }
+  .el-table :deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
+    background-color: #0442d2 !important;
+    border-color: #0442d2 !important;
+  }
+
+  .el-table :deep(.el-checkbox__input.is-indeterminate .el-checkbox__inner) {
+    background-color: #0442d2 !important;
+    border-color: #0442d2 !important;
+  }
+
+  .el-table :deep(.el-checkbox__inner:hover) {
+    border-color: #0442d2;
+  }
+
+  .el-table :deep(.el-checkbox__input.is-focus .el-checkbox__inner) {
+    border-color: #0442d2;
+  }
+
+  .el-table :deep(.el-checkbox__inner) {
+    &:hover {
+      border-color: #0442d2;
+    }
   }
 </style>
