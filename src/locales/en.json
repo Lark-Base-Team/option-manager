@@ -25,7 +25,8 @@
     "removeDuplicates": "Remove Duplicates",
     "saveChanges": "Save",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "reset": "Reset"
   },
   "dialog": {
     "batchAdd": {

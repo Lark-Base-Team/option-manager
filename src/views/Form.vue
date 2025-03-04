@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 11:37
+ * @LastTime   : 2025-03-04 13:05
  * @desc       : 主要页面
 -->
 <script setup>
@@ -737,10 +737,17 @@
             :placeholder="$t('placeholder.search')"
             clearable
             style="width: calc(100% - 80px)"
-          />
-          <div style="font-size: 14px; color: #909399; display: flex; align-items: center">
-            <span style="color: #0442d2">{{ selectedOptions.length }}/{{ filteredOptions.length }}</span>
-          </div>
+          >
+            <template #append>
+              <div
+                style="padding: 0 8px; font-size: 13px; color: #666; display: flex; align-items: center; height: 28px"
+              >
+                <span style="color: #0442d2; font-weight: 500">{{ selectedOptions.length }}</span>
+                <span style="margin: 0 2px">/</span>
+                <span>{{ filteredOptions.length }}</span>
+              </div>
+            </template>
+          </el-input>
         </div>
         <el-table
           :data="filteredOptions"
@@ -796,24 +803,23 @@
           >
             <template #header>
               <el-button
-                type="text"
+                type="warning"
+                plain
                 size="small"
                 @click="handleReset"
                 style="
-                  padding: 0;
-                  width: 32px;
+                  background-color: #fff;
                   height: 32px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  color: #999;
+                  gap: 4px;
                   transition: color 0.2s;
-                  font-size: 18px;
+                  font-size: 14px;
                 "
-                :class="{ 'delete-btn-hover': true }"
-                class="delete-btn"
               >
                 <el-icon><Refresh /></el-icon>
+                {{ $t('button.reset') }}
               </el-button>
             </template>
             <template #default="{ row, $index }">

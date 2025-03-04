@@ -25,7 +25,8 @@
     "removeDuplicates": "重複を削除",
     "saveChanges": "保存",
     "cancel": "キャンセル",
-    "confirm": "確認する"
+    "confirm": "確認する",
+    "reset": "リセット"
   },
   "dialog": {
     "batchAdd": {

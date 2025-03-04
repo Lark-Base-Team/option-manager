@@ -25,7 +25,8 @@
     "removeDuplicates": "去除重复",
     "saveChanges": "保存",
     "cancel": "取消",
-    "confirm": "确认"
+    "confirm": "确认",
+    "reset": "重置"
   },
   "dialog": {
     "batchAdd": {
