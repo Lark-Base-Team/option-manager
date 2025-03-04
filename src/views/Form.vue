@@ -376,6 +376,51 @@
       });
   };
 
+  const handleEnterKeydown = async ($index) => {
+    const option = fieldOptions.value[$index];
+    if (!option) return;
+    // 检查是否重复
+    const duplicateOption = fieldOptions.value.find((o) => o.value !== option.value && o.label === option.label);
+    if (duplicateOption) {
+      // 获取最近一次有效值
+      const lastValidLabel =
+        originalOptions.value.find((o) => o.value === option.value)?.label || fieldOptions.value[$index].label;
+
+      // 显示重名确认弹窗
+      try {
+        await ElMessageBox.confirm(
+          t('dialog.rename.description', { name: duplicateOption.label }),
+          t('dialog.rename.title'),
+          {
+            confirmButtonText: t('button.confirm'),
+            showCancelButton: false,
+            type: 'warning',
+          },
+        );
+      } finally {
+        // 无论用户点击确认还是取消，都恢复为最近一次有效值
+        option.label = lastValidLabel;
+        // 确保视图更新
+        fieldOptions.value[$index].label = lastValidLabel;
+        // 重置hasChanges状态
+        hasChanges.value = false;
+      }
+      return;
+    }
+
+    // 如果不是最后一行且没有重名，则切换到下一个输入框
+    if ($index < fieldOptions.value.length - 1) {
+      nextTick(() => {
+        // 获取所有输入框
+        const inputs = document.querySelectorAll('.el-table__body .el-input__inner');
+        // 聚焦下一个输入框
+        if (inputs[$index + 1]) {
+          inputs[$index + 1].focus();
+        }
+      });
+    }
+  };
+
   const handleBatchAddConfirm = () => {
     if (!batchInputText.value.trim()) {
       ElMessage.warning(t('message.emptyInput'));
@@ -623,12 +668,13 @@
             prop="label"
             :label="$t('label.optionName')"
           >
-            <template #default="{ row }">
+            <template #default="{ row, $index }">
               <el-input
                 v-model="row.label"
                 size="small"
                 @input="debouncedHandleOptionNameChange(row)"
                 @blur="handleOptionNameChange(row)"
+                @keydown.enter="handleEnterKeydown($index)"
                 :placeholder="$t('placeholder.optionName')"
               />
             </template>
