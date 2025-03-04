@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 13:35
+ * @LastTime   : 2025-03-04 13:43
  * @desc       : 主要页面
 -->
 <script setup>
@@ -726,7 +726,7 @@
       v-if="selectFieldId"
     >
       <div class="options-container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px">
           <el-input
             v-model="searchQuery"
             :placeholder="$t('placeholder.search')"
@@ -749,7 +749,7 @@
           :data="filteredOptions"
           style="width: 100%"
           row-key="value"
-          :max-height="400"
+          max-height="53vh"
           v-loading="loading"
           @selection-change="handleSelect"
         >
@@ -998,20 +998,20 @@
   .options-footer {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     margin-top: 20px;
   }
 
   .options-actions {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   .button-groups {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   .button-row {
