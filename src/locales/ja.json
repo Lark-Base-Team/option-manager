@@ -21,6 +21,8 @@
   "button": {
     "addOption": "単一追加",
     "batchAddOptions": "一括追加",
+    "batchDelete": "一括削除",
+    "removeDuplicates": "重複を削除",
     "saveChanges": "保存",
     "cancel": "キャンセル",
     "confirm": "確認する"
@@ -28,6 +30,14 @@
   "dialog": {
     "batchAdd": {
       "title": "オプションの一括追加"
+    },
+    "batchDelete": {
+      "title": "一括削除",
+      "description": "選択したオプションを削除してもよろしいですか？"
+    },
+    "removeDuplicates": {
+      "title": "重複を削除",
+      "description": "重複したオプションを削除してもよろしいですか？"
     },
     "sponsor": {
       "title": "💗 支援する",
@@ -48,6 +58,12 @@
     "emptyOptions": "少なくとも1つのオプションを入力してください",
     "duplicateOptions": "以下のオプション名は既に存在します：{names} ,自動的にスキップされます",
     "batchAddSuccess": "{count}個のオプションを追加しました",
-    "resetSuccess": "リセットが完了しました"
+    "resetSuccess": "リセットが完了しました",
+    "selectOptionsFirst": "削除するオプションを選択してください",
+    "batchDeleteSuccess": "一括削除が完了しました",
+    "removeDuplicatesSuccess": "重複の削除が完了しました",
+    "noDuplicates": "重複するオプションはありません",
+    "saveSuccess": "保存が完了しました",
+    "saveFailed": "保存に失敗しました"
   }
 }

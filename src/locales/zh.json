@@ -21,6 +21,8 @@
   "button": {
     "addOption": "单个添加",
     "batchAddOptions": "批量添加",
+    "batchDelete": "批量删除",
+    "removeDuplicates": "去除重复",
     "saveChanges": "保存",
     "cancel": "取消",
     "confirm": "确认"
@@ -28,6 +30,14 @@
   "dialog": {
     "batchAdd": {
       "title": "批量添加选项"
+    },
+    "batchDelete": {
+      "title": "批量删除",
+      "description": "确定要删除选中的选项吗？"
+    },
+    "removeDuplicates": {
+      "title": "去除重复",
+      "description": "确定要去除重复的选项吗？"
     },
     "sponsor": {
       "title": "💗 赞助我",
@@ -48,6 +58,12 @@
     "emptyOptions": "请输入至少一个选项",
     "duplicateOptions": "以下选项名称已存在：{names} ,将被自动跳过",
     "batchAddSuccess": "成功添加 {count} 个选项",
-    "resetSuccess": "重置成功"
+    "resetSuccess": "重置成功",
+    "selectOptionsFirst": "请先选择要删除的选项",
+    "batchDeleteSuccess": "批量删除成功",
+    "removeDuplicatesSuccess": "去除重复成功",
+    "noDuplicates": "没有重复的选项",
+    "saveSuccess": "保存成功",
+    "saveFailed": "保存失败"
   }
 }

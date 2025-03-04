@@ -21,6 +21,8 @@
   "button": {
     "addOption": "Add Single",
     "batchAddOptions": "Batch Add",
+    "batchDelete": "Batch Delete",
+    "removeDuplicates": "Remove Duplicates",
     "saveChanges": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm"
@@ -28,6 +30,14 @@
   "dialog": {
     "batchAdd": {
       "title": "Batch Add Options"
+    },
+    "batchDelete": {
+      "title": "Batch Delete",
+      "description": "Are you sure you want to delete the selected options?"
+    },
+    "removeDuplicates": {
+      "title": "Remove Duplicates",
+      "description": "Are you sure you want to remove duplicate options?"
     },
     "sponsor": {
       "title": "💗 Sponsor Me",
@@ -48,6 +58,12 @@
     "emptyOptions": "Please enter at least one option",
     "duplicateOptions": "The following option names already exist: {names} ,will be skipped automatically",
     "batchAddSuccess": "Successfully added {count} options",
-    "resetSuccess": "Reset successful"
+    "resetSuccess": "Reset successful",
+    "selectOptionsFirst": "Please select options to delete first",
+    "batchDeleteSuccess": "Batch delete successful",
+    "removeDuplicatesSuccess": "Remove duplicates successful",
+    "noDuplicates": "No duplicate options found",
+    "saveSuccess": "Save successful",
+    "saveFailed": "Save failed"
   }
 }

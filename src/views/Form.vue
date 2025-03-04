@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-04 11:26
+ * @LastTime   : 2025-03-04 11:37
  * @desc       : 主要页面
 -->
 <script setup>
@@ -116,6 +116,40 @@
     } catch (error) {
       // 用户取消删除操作
     }
+  };
+
+  // 处理去除重复
+  const handleRemoveDuplicates = () => {
+    ElMessageBox.confirm(t('dialog.removeDuplicates.description'), t('dialog.removeDuplicates.title'), {
+      confirmButtonText: t('button.confirm'),
+      cancelButtonText: t('button.cancel'),
+      type: 'warning',
+    })
+      .then(() => {
+        // 执行去除重复操作
+        const uniqueOptions = [];
+        const seen = new Set();
+
+        // 从前往后遍历，保留第一次出现的选项
+        for (let i = 0; i < fieldOptions.value.length; i++) {
+          const option = fieldOptions.value[i];
+          if (!seen.has(option.label)) {
+            seen.add(option.label);
+            uniqueOptions.push(option); // 使用 push 保持原始顺序
+          }
+        }
+
+        if (uniqueOptions.length < fieldOptions.value.length) {
+          fieldOptions.value = uniqueOptions;
+          hasChanges.value = true;
+          ElMessage.success(t('message.removeDuplicatesSuccess'));
+        } else {
+          ElMessage.info(t('message.noDuplicates'));
+        }
+      })
+      .catch(() => {
+        // 用户取消操作，不做任何处理
+      });
   };
 
   // 监听选择的字段变化，获取字段选项值
@@ -232,7 +266,7 @@
     // 检查是否已存在相同名称的选项
     const isDuplicate = fieldOptions.value.some((option) => option.label === newOption.label);
     if (isDuplicate) {
-      ElMessage.warning('选项名称已存在，请输入其他名称');
+      ElMessage.warning(t('dialog.rename.description', { name: newOption.label }));
       return;
     }
 
@@ -269,11 +303,12 @@
       );
 
       // 获取需要添加的选项
-      const addedOptions = fieldOptions.value.filter((current) => current.value.startsWith('temp_'));
+      const addedOptions = fieldOptions.value.filter((current) => current.value && current.value.startsWith('temp_'));
 
       // 获取需要更新的选项
       const updatedOptions = fieldOptions.value.filter(
         (current) =>
+          current.value &&
           !current.value.startsWith('temp_') &&
           originalOptions.value.some(
             (original) => original.value === current.value && original.label !== current.label,
@@ -303,10 +338,10 @@
       // 更新原始数据
       originalOptions.value = JSON.parse(JSON.stringify(fieldOptions.value));
       hasChanges.value = false;
-      ElMessage.success('保存成功');
+      ElMessage.success(t('message.saveSuccess'));
     } catch (error) {
       console.error('保存修改失败:', error);
-      ElMessage.error('保存失败');
+      ElMessage.error(t('message.saveFailed'));
     } finally {
       loading.value = false;
     }
@@ -704,7 +739,7 @@
             style="width: calc(100% - 80px)"
           />
           <div style="font-size: 14px; color: #909399; display: flex; align-items: center">
-            {{ $t('label.optionCount') }}：<span style="color: #0442d2">{{ filteredOptions.length }}</span>
+            <span style="color: #0442d2">{{ selectedOptions.length }}/{{ filteredOptions.length }}</span>
           </div>
         </div>
         <el-table
@@ -847,7 +882,7 @@
                   @click="handleBatchDelete"
                   :icon="Delete"
                   style="background-color: #ffffff; font-weight: 500; padding: 8px 16px; border-radius: 4px; flex: 1"
-                  >批量删除</el-button
+                  >{{ $t('button.batchDelete') }}</el-button
                 >
                 <el-button
                   plain
@@ -855,7 +890,7 @@
                   @click="handleRemoveDuplicates"
                   :icon="Remove"
                   style="background-color: #ffffff; font-weight: 500; padding: 8px 16px; border-radius: 4px; flex: 1"
-                  >去除重复</el-button
+                  >{{ $t('button.removeDuplicates') }}</el-button
                 >
               </div>
             </div>
